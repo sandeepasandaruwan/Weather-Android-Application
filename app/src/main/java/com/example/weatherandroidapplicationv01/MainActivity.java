@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,20 +52,36 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             try{
                 JSONObject jsonObject = new JSONObject(result);
-                String weatherInfo = jsonObject.getString("main");
 
-                weatherInfo = weatherInfo.replace("temp","Temperature");
-                weatherInfo = weatherInfo.replace("feels_like","Feels Like");
-                weatherInfo = weatherInfo.replace("temp_max","Temperature Max");
-                weatherInfo = weatherInfo.replace("temp_min","Temperature Min");
-                weatherInfo = weatherInfo.replace("pressure","Pressure");
-                weatherInfo = weatherInfo.replace("humidity","Humidity");
-                weatherInfo = weatherInfo.replace("{","");
-                weatherInfo = weatherInfo.replace("}","");
-                weatherInfo = weatherInfo.replace(",","\n");
-                weatherInfo = weatherInfo.replace(":"," : ");
+                JSONObject coord = jsonObject.getJSONObject("coord");
+                double lon = coord.getDouble("lon");
+                double lat = coord.getDouble("lat");
+
+                String weatherInfo = jsonObject.getJSONObject("main").toString();
+
+                weatherInfo = weatherInfo.replace("temp", "Temperature");
+                weatherInfo = weatherInfo.replace("feels_like", "Feels Like");
+                weatherInfo = weatherInfo.replace("temp_max", "Temperature Max");
+                weatherInfo = weatherInfo.replace("temp_min", "Temperature Min");
+                weatherInfo = weatherInfo.replace("pressure", "Pressure");
+                weatherInfo = weatherInfo.replace("humidity", "Humidity");
+
+                weatherInfo = weatherInfo.replace("{", "");
+                weatherInfo = weatherInfo.replace("}", "");
+                weatherInfo = weatherInfo.replace(",", "\n");
+                weatherInfo = weatherInfo.replace(":", " : ");
                 weatherInfo = weatherInfo.replace("\"", "");
-                show.setText(weatherInfo);
+
+                String coordInfo = "Longitude : " + lon + "\nLatitude : " + lat;
+
+                //String displayInfo = coordInfo + "\n" + weatherInfo;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                String currentTime = sdf.format(new Date());
+
+                String displayInfo = "Current Time : " + currentTime + "\n" + coordInfo + "\n" + weatherInfo;
+
+                show.setText(displayInfo);
 
             }catch(Exception e){
                 e.printStackTrace();
