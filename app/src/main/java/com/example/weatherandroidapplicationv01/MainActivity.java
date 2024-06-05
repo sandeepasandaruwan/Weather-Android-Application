@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
                 String coordInfo = "Longitude : " + lon + "\nLatitude : " + lat;
 
-                //String displayInfo = coordInfo + "\n" + weatherInfo;
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
                 String currentTime = sdf.format(new Date());
