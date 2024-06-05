@@ -1,3 +1,6 @@
+
+![Weather-Android-Application](https://github.com/sandeepasandaruwan/Weather-Android-Application/assets/112379948/0b821c7d-17a8-4c83-9a36-98afaca26c4c)
+
 Weather Android Application
 
 This Android application provides users with weather information for a specified location. It fetches data from the OpenWeatherMap API and displays the current weather conditions including temperature, humidity, pressure, and more.
